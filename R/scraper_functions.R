@@ -4,9 +4,10 @@
 #' @param base_url url provided by user
 #'
 #' @export
-#'
+#' @import glue
 #' @import rvest
 #' @import dplyr
+#' @import readr
 #' @import lubridate
 #' @import stringr
 
@@ -14,7 +15,8 @@
 
 n_pages <- function(base_url){
 
-  last_page <-html                %>%
+  base_url                        %>%
+    xml2::read_html()             %>%
     html_nodes("a")               %>%
     html_attr("data-page-number") %>%
     na.omit()                     %>%

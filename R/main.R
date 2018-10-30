@@ -97,9 +97,3 @@ get_reviews <- function(base_url, page_lim = NULL, company = NULL, verbose = TRU
   }
 }
 
-# example
-#base_url = "https://www.tripadvisor.dk/Hotel_Review-g189532-d232132-Reviews-Hjerting_Badehotel-Esbjerg_South_Jutland_Jutland.html"
-#d = get_reviews(base_url,6,verbose=T)
-#d
-
-
