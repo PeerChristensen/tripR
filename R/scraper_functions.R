@@ -20,7 +20,8 @@ n_pages <- function(base_url){
     html_nodes("a")               %>%
     html_attr("data-page-number") %>%
     na.omit()                     %>%
-    as.numeric()                  %>%
+    attributes()                  %>%
+    unlist()                      %>%
     max()
 }
 
@@ -42,9 +43,20 @@ get_pages <- function(base_url){
 
 get_id <- function(html) {
 
-  id <- html                          %>%
-    html_nodes("[class='info_text']") %>%
-    html_node("div")                  %>%
+  id <- html                   %>%
+    html_nodes("div")          %>%
+    html_attr("data-reviewid") %>%
+    na.omit()
+
+ # attributes(id) = NULL
+}
+
+### FUNCTION: GET NAME ###
+
+get_name <- function(html) {
+
+  name <- html %>%
+    html_nodes("[class='ui_header_link social-member-event-MemberEventOnObjectBlock__member--35-jC']") %>%
     html_text()
 }
 
@@ -52,10 +64,15 @@ get_id <- function(html) {
 
 get_date <- function(html) {
 
-  date <- html                         %>%
-    html_nodes("[class='ratingDate']") %>%
-    html_attr("title")                 %>%
-    dmy()
+  date <- html         %>%
+    html_nodes("span") %>%
+    html_text()        %>%
+    str_subset("skrev en anmeldelse|wrote") %>%
+    str_split("d\\.") %>%
+    map_chr(2) %>%
+    str_trim() #%>%
+    #lubridate::parse_date_time(date,orders=c("mdy")) doesn't work
+    #Error in strptime(.enclose(x), .enclose(fmt), tz) : invalid 'tz' value
 }
 
 ### FUNCTION: GET RATING ###
@@ -70,12 +87,21 @@ get_rating <- function(html) {
     parse_number() / 10
 }
 
+### FUNCTION: GET TITLE ###
+
+get_title <- function(html) {
+
+  title <- html %>%
+    html_nodes("[class='hotels-review-list-parts-ReviewTitle__reviewTitleText--3QrTy']") %>%
+    html_text()
+}
+
+
 ### FUNCTION: GET REVIEW ###
 
 get_review <- function(html) {
 
   review <- html     %>%
-    html_nodes("[class='partial_entry']") %>%
-    html_text()      %>%
-    str_remove("\n")
+    html_nodes("q") %>%
+    html_text()
 }

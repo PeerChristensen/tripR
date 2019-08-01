@@ -1,15 +1,5 @@
 #' Main function at user level
-#
-# You can learn more about package authoring with RStudio at:
-#
-#   http://r-pkgs.had.co.nz/
-#
-# Some useful keyboard shortcuts for package authoring:
-#
-#   Build and Reload Package:  'Cmd + Shift + B'
-#   Check Package:             'Cmd + Shift + E'
-#   Test Package:              'Cmd + Shift + T'
-
+#'
 #' @param base_url url provided by user
 #' @param page_lim number of pages to parse
 #' @param company  company name
@@ -24,7 +14,7 @@
 #' @import purrr
 #'
 #' @examples
-#' get_reviews("https://www.tripadvisor.dk/Hotel_Review-g189532-d232132-Reviews-Hjerting_Badehotel-Esbjerg_South_Jutland_Jutland.html",5,"hbh")
+#' get_reviews("https://www.tripadvisor.dk/Hotel_Review-g189532-d232132-Reviews-Hjerting_Badehotel-Esbjerg_South_Jutland_Jutland.html",2,"hbh")
 
 
 ### MAIN FUNCTION: PREPARE REVIEW DATASET ###
@@ -45,6 +35,12 @@ get_reviews <- function(base_url, page_lim = NULL, company = NULL, verbose = TRU
 
     # get id
     id <- html %>% get_id()
+
+    # get name
+    name <- html %>% get_name()
+
+    # get title
+    title <- html %>% get_title()
 
     # get date
     date <- html %>% get_date()
@@ -67,7 +63,7 @@ get_reviews <- function(base_url, page_lim = NULL, company = NULL, verbose = TRU
       rating = NA
     }
 
-    tibble(id,date,rating,review)
+    tibble(id,name,date,rating,title,review)
   }
 
   ### START OF MAIN FUNCTION ###

@@ -20,5 +20,5 @@ get_reviews(base_url, page_lim = NULL, company = NULL,
 Main function at user level
 }
 \examples{
-get_reviews("https://www.tripadvisor.dk/Hotel_Review-g189532-d232132-Reviews-Hjerting_Badehotel-Esbjerg_South_Jutland_Jutland.html",5,"hbh")
+get_reviews("https://www.tripadvisor.dk/Hotel_Review-g189532-d232132-Reviews-Hjerting_Badehotel-Esbjerg_South_Jutland_Jutland.html",2,"hbh")
 }
