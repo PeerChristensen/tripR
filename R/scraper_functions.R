@@ -96,7 +96,6 @@ get_title <- function(html) {
     html_text()
 }
 
-
 ### FUNCTION: GET REVIEW ###
 
 get_review <- function(html) {
@@ -105,3 +104,142 @@ get_review <- function(html) {
     html_nodes("q") %>%
     html_text()
 }
+
+#####################################################
+##### ATTRACTION REVIEWS ############################
+
+
+### FUNCTION: GET DATE ###
+
+get_date_attr <- function(html) {
+
+  date <- html %>%
+    html_nodes("[class='ratingDate']") %>%
+    html_attrs() %>%
+    map(2) %>%
+    unlist()
+}
+
+### FUNCTION: GET NAME ###
+
+get_name_attr <- function(html) {
+
+  name <- html %>%
+    html_nodes("[class='info_text']") %>%
+    html_text()
+}
+
+### FUNCTION: GET LOCATION ###
+
+get_location_attr <- function(html) {
+
+  location <- html %>%
+    html_nodes("div.userLoc") %>%
+    html_text()
+}
+
+### FUNCTION: GET RATING ###
+
+get_rating_attr <- function(html) {
+
+  rating <- html                   %>%
+    html_nodes("div span")         %>%
+    html_attr("class")             %>%
+    str_subset("ui_bubble_rating") %>%
+    .[6:15]                        %>%
+    parse_number() / 10
+
+}
+
+### FUNCTION: GET TITLE ###
+
+get_title_attr <- function(html) {
+
+  title <- html %>%
+    html_nodes("[class='noQuotes']") %>%
+    html_text()
+}
+
+### FUNCTION: GET REVIEW ###
+
+get_review_attr <- function(html) {
+
+  review <- html %>%
+    html_nodes("[class='entry']") %>% html_text()
+}
+
+# # danske
+# url <- "https://www.tripadvisor.dk/Attraction_Review-g189541-d197738-Reviews-Tivoli_Gardens-Copenhagen_Zealand.html"
+#
+# html <- url %>% xml2::read_html()
+#
+# # dato
+# html %>% html_nodes("[class='ratingDate']") %>%
+#   html_attrs() %>%
+#   map(2) %>%
+#   unlist()
+#
+# # navn
+# html %>% html_nodes("[class='info_text']") %>% html_text()
+#
+# # sted
+# html %>% html_nodes("div.userLoc") %>% html_text()
+#
+# # rating
+# html                               %>%
+#     html_nodes("div span")         %>%
+#     html_attr("class")             %>%
+#     str_subset("ui_bubble_rating") %>%
+#     .[6:15]                        %>%
+#     parse_number() / 10
+#
+# # titel
+# html %>% html_nodes("[class='noQuotes']") %>% html_text()
+#
+# # review
+# html %>% html_nodes("[class='entry']") %>% html_text()
+#
+#
+#
+#
+#
+# # engelske reviews
+# url2 <- "https://www.tripadvisor.co.uk/Attraction_Review-g189541-d197738-Reviews-Tivoli_Gardens-Copenhagen_Zealand.html"
+#
+# html2 <- url2 %>% xml2::read_html()
+#
+# html2 %>% html_nodes("[class='info_text']") %>% html_text()
+#
+# # italienske reviews
+# url3 <- "https://www.tripadvisor.it/Attraction_Review-g189541-d197738-Reviews-Tivoli_Gardens-Copenhagen_Zealand.html"
+#
+# html3 <- url3 %>% xml2::read_html()
+#
+# html3 %>% html_nodes("[class='info_text']") %>% html_text()
+
+# links <- html %>% html_nodes("a") %>% html_attr("href") %>%
+#   str_subset("ShowUserReviews")
+
+
+
+# #første link der følges..
+# url2 <- "https://www.tripadvisor.dk/ShowUserReviews-g189541-d197738-r693066475-Tivoli_Gardens-Copenhagen_Zealand.html"
+# html2 <- url2 %>% xml2::read_html()
+#
+# html2 %>% html_nodes("div.userLoc")
+#
+# <div class="info_text" onclick="widgetEvCall('handlers.usernameClick', event, this);">
+#
+#
+#
+# data = html2 %>%
+#   html_nodes("[type='application/ld+json']") %>%
+#   html_text() %>%
+#   .[[1]] %>%
+#   fromJSON()
+#
+# title <- data$name
+# date <- data$datePublished
+# review <- data$reviewBody
+# rating <- as.numeric(data$reviewRating$ratingValue)
+

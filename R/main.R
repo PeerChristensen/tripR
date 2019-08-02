@@ -30,26 +30,49 @@ get_reviews <- function(base_url, page_lim = NULL, company = NULL, verbose = TRU
     if (verbose == TRUE) {
       message(url)
     }
+
     # get HTML
     html <- url %>% xml2::read_html()
 
-    # get id
-    id <- html %>% get_id()
-
     # get name
-    name <- html %>% get_name()
+    if (str_detect(base_url,"Attraction")) {
+      name <- html %>% get_name_attr()
+    }
+    else {
+      name <- html %>% get_name()
+    }
 
     # get title
-    title <- html %>% get_title()
+    if (str_detect(base_url,"Attraction")) {
+      title <- html %>% get_title_attr()
+    }
+    else {
+      title <- html %>% get_title()
+    }
 
     # get date
-    date <- html %>% get_date()
+    if (str_detect(base_url,"Attraction")) {
+      date <- html %>% get_date_attr()
+    }
+    else {
+      date <- html %>% get_date()
+    }
 
     # get rating
-    rating <- html %>% get_rating()
+    if (str_detect(base_url,"Attraction")) {
+      rating <- html %>% get_rating_attr()
+    }
+    else {
+      rating <- html %>% get_rating()
+    }
 
     # get review
-    review <- html %>% get_review()
+    if (str_detect(base_url,"Attraction")) {
+      review <- html %>% get_review_attr()
+    }
+    else {
+      review <- html %>% get_review()
+    }
     review <- as.character(review)
 
     # gather variables in tibble
@@ -63,7 +86,7 @@ get_reviews <- function(base_url, page_lim = NULL, company = NULL, verbose = TRU
       rating = NA
     }
 
-    tibble(id,name,date,rating,title,review)
+    tibble(name,date,rating,title,review)
   }
 
   ### START OF MAIN FUNCTION ###
@@ -91,5 +114,6 @@ get_reviews <- function(base_url, page_lim = NULL, company = NULL, verbose = TRU
       mutate(company = company)   %>%
       select(company, everything())
   }
+
 }
 
