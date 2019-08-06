@@ -32,7 +32,7 @@ get_reviews <- function(base_url, page_lim = NULL, company = NULL, verbose = TRU
     }
 
     # get HTML
-    html <- url %>% retry(xml2::read_html())
+    html <- retry(xml2::read_html(url))
 
     # get name
     if (str_detect(base_url,"Attraction")) {
