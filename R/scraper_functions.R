@@ -19,10 +19,11 @@ n_pages <- function(base_url){
     xml2::read_html()             %>%
     html_nodes("a")               %>%
     html_attr("data-page-number") %>%
-    na.omit()                     %>%
-    attributes()                  %>%
-    unlist()                      %>%
-    max()
+    #na.omit()                     %>%
+    #attributes()                  %>%
+    #unlist()                      %>%
+    as.numeric()                  %>%
+    max(na.rm = T)
 }
 
 ### FUNCTION: GET ALL PAGES ###
@@ -30,7 +31,7 @@ n_pages <- function(base_url){
 get_pages <- function(base_url){
 
   last_page      = n_pages(base_url)
-  page_intervals = seq_along(1:(last_page-1)) * 5
+  page_intervals = seq_along(1:(last_page-1)) * 10
   split_url      = base_url %>% str_split("Reviews") %>% unlist()
   combined_urls  = NULL
   for (i in page_intervals){
