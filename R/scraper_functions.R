@@ -10,6 +10,8 @@
 #' @import readr
 #' @import lubridate
 #' @import stringr
+#' @import futile.logger
+#' @import utils
 
 ### FUNCTION: GET N PAGES ###
 

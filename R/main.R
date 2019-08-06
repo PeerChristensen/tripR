@@ -98,10 +98,6 @@ get_reviews <- function(base_url, page_lim = NULL, company = NULL, verbose = TRU
 
 }
 
-# function for retries
-library(futile.logger)
-library(utils)
-
 retry <- function(expr, isError=function(x) "try-error" %in% class(x), maxErrors=5, sleep=0) {
   attempts = 0
   retval = try(eval(expr))
