@@ -105,6 +105,7 @@ get_reviews <- function(base_url, page_lim = NULL, company = NULL, verbose = TRU
     data <- do.call("rbind",data) %>%
       mutate(company = company)   %>%
       select(company, everything())
+
   }
 
 }
