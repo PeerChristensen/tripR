@@ -2,6 +2,7 @@
 
 export(get_reviews)
 export(n_pages)
+export(get_pages)
 import(dplyr)
 import(glue)
 import(lubridate)
