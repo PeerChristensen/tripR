@@ -21,11 +21,11 @@
 
 get_reviews <- function(base_url, page_lim = NULL, company = NULL, verbose = TRUE) {
 
-
   ### NESTED FUNCTION ###
 
   build_dfs <- function(url) {
 
+    Sys.sleep(3)
     # whether to print the current url
     if (verbose == TRUE) {
       message(url)
@@ -36,43 +36,24 @@ get_reviews <- function(base_url, page_lim = NULL, company = NULL, verbose = TRU
 
     # get name
     if (str_detect(base_url,"Attraction")) {
-      name <- html %>% get_name_attr()
-    }
-    else {
-      name <- html %>% get_name()
-    }
 
-    # get title
-    if (str_detect(base_url,"Attraction")) {
-      title <- html %>% get_title_attr()
-    }
-    else {
-      title <- html %>% get_title()
-    }
+      name     <- html %>% get_name_attr()
+      #location <- html %>% get_location_attr()
+      title    <- html %>% get_title_attr()
+      date     <- html %>% get_date_attr()
+      rating   <- html %>% get_rating_attr()
+      review   <- html %>% get_review_attr()
 
-    # get date
-    if (str_detect(base_url,"Attraction")) {
-      date <- html %>% get_date_attr()
     }
     else {
-      date <- html %>% get_date()
-    }
-
-    # get rating
-    if (str_detect(base_url,"Attraction")) {
-      rating <- html %>% get_rating_attr()
-    }
-    else {
+      name   <- html %>% get_name()
+      #location...
+      title  <- html %>% get_title()
+      date   <- html %>% get_date()
       rating <- html %>% get_rating()
-    }
-
-    # get review
-    if (str_detect(base_url,"Attraction")) {
-      review <- html %>% get_review_attr()
-    }
-    else {
       review <- html %>% get_review()
     }
+
     review <- as.character(review)
 
     # gather variables in tibble
