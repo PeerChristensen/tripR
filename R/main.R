@@ -56,6 +56,7 @@ get_reviews <- function(base_url, page_lim = NULL, company = NULL, verbose = TRU
       review   <- html %>% get_review_attr()
 
     }
+
     else {
       name   <- html %>% get_name()
       #location...
@@ -68,9 +69,6 @@ get_reviews <- function(base_url, page_lim = NULL, company = NULL, verbose = TRU
     review <- as.character(review)
 
     # gather variables in tibble
-    if (length(id) != length(review)) {
-      id = NA
-    }
     if (length(date) != length(review)) {
       date = NA
     }
