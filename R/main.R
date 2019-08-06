@@ -32,16 +32,18 @@ get_reviews <- function(base_url, page_lim = NULL, company = NULL, verbose = TRU
     }
 
     # get HTML
-    html <- NULL
-    attempt <- 1
-    while(is.null(html) && attempt <= 4 ) {
+    html <- url %>% xml2::read_html()
 
-      attempt <- attempt + 1
-
-      try(
-        html <- url %>% xml2::read_html()
-      )
-    }
+    # html <- NULL
+    # attempt <- 1
+    # while(is.null(html) && attempt <= 4 ) {
+    #
+    #   attempt <- attempt + 1
+    #
+    #   try(
+    #     html <- url %>% xml2::read_html()
+    #   )
+    # }
 
     # get name
     if (str_detect(base_url,"Attraction")) {
