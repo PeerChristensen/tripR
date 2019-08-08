@@ -14,7 +14,8 @@
 #' @import purrr
 #'
 #' @examples
-#' get_reviews("https://www.tripadvisor.dk/Hotel_Review-g189532-d232132-Reviews-Hjerting_Badehotel-Esbjerg_South_Jutland_Jutland.html",2,"hbh")
+#' get_reviews("https://www.tripadvisor.co.uk/Attraction_Review-g189541-d245024-Reviews-The_Little_Mermaid_Den_Lille_Havfrue-Copenhagen_Zealand.html",
+#' 2,"LM")
 
 
 ### MAIN FUNCTION: PREPARE REVIEW DATASET ###
@@ -46,10 +47,9 @@ get_reviews <- function(base_url, page_lim = NULL, company = NULL, verbose = TRU
     }
 
     # get name
-    if (str_detect(base_url,"Attraction")) {
+    if (str_detect(base_url,"Attraction|Restaurant")) {
 
       name     <- html %>% get_name_attr()
-      #location <- html %>% get_location_attr()
       title    <- html %>% get_title_attr()
       date     <- html %>% get_date_attr()
       rating   <- html %>% get_rating_attr()
@@ -59,7 +59,6 @@ get_reviews <- function(base_url, page_lim = NULL, company = NULL, verbose = TRU
 
     else {
       name   <- html %>% get_name()
-      #location...
       title  <- html %>% get_title()
       date   <- html %>% get_date()
       rating <- html %>% get_rating()
@@ -75,8 +74,11 @@ get_reviews <- function(base_url, page_lim = NULL, company = NULL, verbose = TRU
     if (length(rating) != length(review)) {
       rating = NA
     }
+    if (length(location) != length(review)) {
+      location = NA
+    }
 
-    tibble(name,date,rating,title,review)
+    tibble(name,date,location,rating,title,review)
   }
 
   ### START OF MAIN FUNCTION ###

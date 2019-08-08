@@ -9,7 +9,7 @@ Description: This package scrapes user reviews of businesses from Tripadvisor.
     You can set page_lim to control how many pages to parse.
 License: GPL-2
 Encoding: UTF-8
-LazyData: tr<<<<ue
+LazyData: true
 RoxygenNote: 6.1.1
 Imports: dplyr, lubridate, rvest, xml2, stringr, purrr,readr,glue
 
