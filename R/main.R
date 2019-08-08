@@ -74,11 +74,8 @@ get_reviews <- function(base_url, page_lim = NULL, company = NULL, verbose = TRU
     if (length(rating) != length(review)) {
       rating = NA
     }
-    if (length(location) != length(review)) {
-      location = NA
-    }
 
-    tibble(name,date,location,rating,title,review)
+    tibble(name,date,rating,title,review)
   }
 
   ### START OF MAIN FUNCTION ###
